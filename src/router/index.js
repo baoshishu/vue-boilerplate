@@ -26,10 +26,42 @@ const routes = [
             component: () => import('@/views/mod1/List'),
           },
           {
+            path: 'child2',
+            name: 'mod1-2',
+            title: 'mod1-child2',
+            component: () => import('@/views/mod1/Mod'),
+          },
+          {
             name: 'create_mod1',
             path: 'new',
             props: true,
             component: () => import('@/views/mod1/Create'),
+          },
+        ],
+      },
+      {
+        path: '/mod2',
+        icon: 'person',
+        component: RouterView,
+        title: 'mod2',
+        children: [
+          {
+            path: '',
+            name: 'mod2_list',
+            title: 'mod2-child',
+            component: () => import('@/views/mod2/List'),
+          },
+          {
+            path: 'child2',
+            name: 'mod2-2',
+            title: 'mod2-child2',
+            component: () => import('@/views/mod2/Mod'),
+          },
+          {
+            name: 'create_mod2',
+            path: 'new',
+            props: true,
+            component: () => import('@/views/mod2/Create'),
           },
         ],
       },
