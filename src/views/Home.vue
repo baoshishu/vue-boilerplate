@@ -6,6 +6,8 @@
       </div>
     </template>
     <template slot="header-nav">
+      <router-link to="/sys1">sys1</router-link>
+      <router-link to="sys2">sys2</router-link>
       <div class="flex items-center h-full justify-end px-8">
         <el-button type="text" class="text-white" @click="logout" size="normal"
           >logout</el-button
@@ -26,13 +28,15 @@
 <script>
 import Layout from '@/components/Layout'
 import Menu from '@/components/Menu'
-import { MENU_MODULES } from '@/router'
+import { routes } from '@/router'
+console.log({ routes })
+// export const MENU_MODULES = routes[0].children[0].children
 export default {
   name: 'Home',
   components: { Layout, Menu },
   data() {
     return {
-      menus: MENU_MODULES,
+      menus: routes[0].children[0].children,
     }
   },
   computed: {

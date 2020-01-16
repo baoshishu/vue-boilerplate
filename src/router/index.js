@@ -7,66 +7,105 @@ import Login from '@/views/Login'
 
 Vue.use(VueRouter)
 
-const routes = [
+export const routes = [
   {
     path: '/',
-    redirect: '/mod1',
+    redirect: '/sys1',
     component: Home,
     children: [
       {
-        path: '/mod1',
-        icon: 'person',
         component: RouterView,
-        title: 'mod1',
+        path: '/sys1',
         children: [
           {
-            path: '',
-            name: 'mod1_list',
-            title: 'mod1-child',
-            component: () => import('@/views/mod1/List'),
+            path: 'mod1',
+            icon: 'person',
+            component: RouterView,
+            title: 'mod1',
+            children: [
+              {
+                path: '',
+                name: 'mod1_list',
+                title: 'mod1-child',
+                component: () => import('@/views/mod1/List'),
+              },
+              {
+                path: 'child2',
+                name: 'mod1-2',
+                title: 'mod1-child2',
+                component: () => import('@/views/mod1/Mod'),
+              },
+              {
+                name: 'create_mod1',
+                path: 'new',
+                props: true,
+                component: () => import('@/views/mod1/Create'),
+              },
+            ],
           },
           {
-            path: 'child2',
-            name: 'mod1-2',
-            title: 'mod1-child2',
-            component: () => import('@/views/mod1/Mod'),
-          },
-          {
-            name: 'create_mod1',
-            path: 'new',
-            props: true,
-            component: () => import('@/views/mod1/Create'),
+            path: 'mod2',
+            icon: 'person',
+            component: RouterView,
+            title: 'mod2',
+            children: [
+              {
+                path: '',
+                name: 'mod2_list',
+                title: 'mod2-child',
+                component: () => import('@/views/mod2/List'),
+              },
+              {
+                path: 'child2',
+                name: 'mod2-2',
+                title: 'mod2-child2',
+                component: () => import('@/views/mod2/Mod'),
+              },
+              {
+                name: 'create_mod1',
+                path: 'new',
+                props: true,
+                component: () => import('@/views/mod2/Create'),
+              },
+            ],
           },
         ],
       },
       {
-        path: '/mod2',
-        icon: 'person',
         component: RouterView,
-        title: 'mod2',
+        path: '/sys2',
         children: [
           {
-            path: '',
-            name: 'mod2_list',
-            title: 'mod2-child',
-            component: () => import('@/views/mod2/List'),
-          },
-          {
-            path: 'child2',
-            name: 'mod2-2',
-            title: 'mod2-child2',
-            component: () => import('@/views/mod2/Mod'),
-          },
-          {
-            name: 'create_mod2',
-            path: 'new',
-            props: true,
-            component: () => import('@/views/mod2/Create'),
+            path: 'mod2',
+            icon: 'person',
+            component: RouterView,
+            title: 'mod2',
+            children: [
+              {
+                path: '',
+                name: 'mod2_list',
+                title: 'mod2-child',
+                component: () => import('@/views/mod2/List'),
+              },
+              {
+                path: 'child2',
+                name: 'mod2-2',
+                title: 'mod2-child2',
+                component: () => import('@/views/mod2/Mod'),
+              },
+              {
+                name: 'create_mod1',
+                path: 'new',
+                props: true,
+                component: () => import('@/views/mod2/Create'),
+              },
+            ],
           },
         ],
       },
     ],
   },
+
   {
     path: '/login',
     name: 'login',
@@ -88,8 +127,6 @@ const routes = [
     },
   },
 ]
-
-export const MENU_MODULES = routes[0].children
 
 function authGuard(router, isLogged) {
   router.beforeEach((to, from, next) => {
