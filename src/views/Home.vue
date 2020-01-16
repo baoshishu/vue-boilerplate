@@ -6,8 +6,15 @@
       </div>
     </template>
     <template slot="header-nav">
-      <router-link to="/sys1">sys1</router-link>
-      <router-link to="sys2">sys2</router-link>
+      <template v-for="mod in modules">
+        <router-link
+          class="mx-2"
+          active-class="active-module"
+          :key="mod.path"
+          :to="mod.path"
+          >{{ mod.title }}</router-link
+        >
+      </template>
       <div class="flex items-center h-full justify-end px-8">
         <el-button type="text" class="text-white" @click="logout" size="normal"
           >logout</el-button
@@ -28,18 +35,28 @@
 <script>
 import Layout from '@/components/Layout'
 import Menu from '@/components/Menu'
-import { routes } from '@/router'
+import routes from '@/router/routes'
 console.log({ routes })
 // export const MENU_MODULES = routes[0].children[0].children
 export default {
   name: 'Home',
   components: { Layout, Menu },
   data() {
-    return {
-      menus: routes[0].children[0].children,
-    }
+    return {}
   },
   computed: {
+    modules() {
+      return routes[0].children
+    },
+    menus() {
+      const activeModule = routes[0].children.find(mod =>
+        this.$route.path.startsWith(mod.path)
+      )
+      return {
+        children: activeModule.children,
+        module: activeModule,
+      }
+    },
     userName() {
       return this.$store.state.profile?.name
     },
@@ -64,5 +81,8 @@ export default {
   :hover {
     opacity: 0.8;
   }
+}
+.active-module {
+  text-decoration: underline;
 }
 </style>

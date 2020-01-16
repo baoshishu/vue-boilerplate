@@ -30,16 +30,25 @@ export default {
 
   computed: {
     activeRoute() {
+      var matchPath, exactPath
       for (let menu of this.convertedMenus.flatMap(item => item.children)) {
-        if (this.$route.path.startsWith(menu.fullPath)) {
-          console.log(menu.fullPath)
-          return menu.fullPath
+        if (this.$route.path === menu.fullPath) {
+          exactPath = menu.fullPath
+        } else if (this.$route.path.startsWith(menu.fullPath)) {
+          matchPath = menu.fullPath
         }
       }
+      if (exactPath) {
+        return exactPath
+      }
+      if (matchPath) {
+        return matchPath
+      }
+
       return null
     },
     convertedMenus() {
-      return this.menus.map(item => ({
+      return this.menus.children.map(item => ({
         ...item,
         children: item.children
           .filter(module => module.title)
@@ -55,7 +64,7 @@ export default {
 
             return {
               ...module,
-              fullPath: item.path + path,
+              fullPath: this.menus.module.path + '/' + item.path + path,
             }
           }),
       }))
