@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col layout">
     <header class="flex header">
-      <div class="aside" style="background:#3388ff">
+      <div class="aside" style="background: #3388ff;">
         <slot name="logo" />
       </div>
-      <div style="background: #5ca1ff" class="flex-grow">
+      <div style="background: #5ca1ff;" class="flex-grow">
         <slot name="header-nav" />
       </div>
     </header>
